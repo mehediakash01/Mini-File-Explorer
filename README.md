@@ -1,10 +1,10 @@
-#  Mini File Explorer
+# NexusDrive
 
 A premium, highly-performant browser-based file explorer built with React, Next.js, and TypeScript. Designed to emulate native desktop file management workflows with uncompromising UI/UX, true responsive layouts, and a sophisticated client-side state engine.
 
 ## 🚀 Project Overview
 
-The Mini File Explorer is a state-of-the-art web application that allows users to create, navigate, rename, delete, and edit files and folders seamlessly. Built upon modern minimalist design principles, it features deep dark-mode aesthetics, micro-animations, keyboard shortcuts, and a robust architecture capable of handling deeply nested folder structures without performance degradation.
+The NexusDrive is a state-of-the-art web application that allows users to create, navigate, rename, delete, and edit files and folders seamlessly. Built upon modern minimalist design principles, it features deep dark-mode aesthetics, micro-animations, keyboard shortcuts, and a robust architecture capable of handling deeply nested folder structures without performance degradation.
 
 ---
 
