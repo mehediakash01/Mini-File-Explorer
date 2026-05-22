@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Webbly Mini File Explorer
 
-## Getting Started
+A premium, highly-performant browser-based file explorer built with React, Next.js, and TypeScript. Designed to emulate native desktop file management workflows with uncompromising UI/UX, true responsive layouts, and a sophisticated client-side state engine.
 
-First, run the development server:
+## 🚀 Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The Webbly Mini File Explorer is a state-of-the-art web application that allows users to create, navigate, rename, delete, and edit files and folders seamlessly. Built upon modern minimalist design principles, it features deep dark-mode aesthetics, micro-animations, keyboard shortcuts, and a robust architecture capable of handling deeply nested folder structures without performance degradation.
+
+---
+
+## 🧠 Data Architecture & State Engine
+
+Unlike traditional file trees that rely on deeply nested recursive objects (which become exponentially slower to traverse and mutate), this project utilizes a **Normalized Flat State Object**.
+
+```typescript
+export type FileSystemState = { [id: string]: FileNode };
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Why Normalization?**
+- **O(1) Lookups & Mutations:** Fetching, updating, or deleting any node requires exactly one dictionary lookup. No deep recursive state mapping.
+- **Relational Integrity:** Parent-child relationships are mapped via a `parentId` pointer, functioning exactly like a relational database table.
+- **Immutability without lag:** Updating a nested child doesn't require cloning its entire ancestry tree.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛡️ Algorithmic Edge Cases Handled
 
-## Learn More
+- **Breadth-First Search (BFS) Deletion Stack:** Deleting a folder recursively deletes all its descendants in a single, predictable pass using an iterative BFS queue. This prevents orphaned records and avoids call-stack limits associated with deep recursion.
+- **Collision Protection:** Creating a new file or folder automatically checks sibling nodes for name collisions. If a conflict is found, the system defensively resolves it by appending `(New)`.
+- **Defensive Tracking Views:** Deleting a node that the user is currently viewing (e.g., deleting an open file or an active folder) defensively resets the `currentFolderId` or `openFileId` to a safe fallback state, preventing crashes.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💎 Production-Grade Refinements
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Hydration Flicker Mitigation:** React SSR (Server-Side Rendering) often suffers from layout shifts when hydrating `localStorage` data. We introduced an explicit `isHydrated` lifecycle barrier that renders a premium skeleton loader until the client state completely synchronizes with browser storage.
+- **Strict Input Guardrails:** Folder and file creations pass through robust regex validators (`/[\\/:*?"<>|]/`) and aggressive `trim()` filters. Edge cases like empty spaces or illegal Windows/Unix characters immediately trigger subtle inline validation errors.
+- **Desktop Keyboard Navigation:** We respect the user's muscle memory. Native desktop shortcuts have been wired into the UI:
+  - `Enter`: Navigate into folders or open files.
+  - `F2`: Instantly triggers the inline rename dialog.
+  - `Delete` / `Backspace`: Summons a destructive action confirmation modal.
+  - `Ctrl + S` / `Cmd + S`: Saves the active file without triggering the browser's save-page dialog.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📱 Responsive Layout Design
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The workspace dynamically morphs to respect the user's viewport without compromising capabilities.
+- **Adaptive Mobile Overlay Drawer:** On devices below `768px`, the sidebar tree view gracefully transforms into an `absolute` off-canvas drawer that slides in effortlessly via a dedicated mobile toolbar toggle.
+- **Fluid Grid Refactor:** The grid layout actively scales from `grid-cols-1` on mobile phones, morphing into `grid-cols-2`, `grid-cols-3`, and `grid-cols-4` as horizontal real estate expands.
+- **Editor Dominance:** When a file is opened on mobile, the text editor slides in to take 100% of the viewport width, granting maximum space for virtual keyboards, complete with a clean "Back" chevron to return to the grid.
+
+---
+
+*Built with passion, strict TypeScript, TailwindCSS, and Shadcn UI.*

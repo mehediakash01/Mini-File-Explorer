@@ -2,7 +2,7 @@
 
 // File content editor — workspace panel
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { FileText, X, Code2, CheckCheck, Circle } from 'lucide-react';
+import { FileText, X, ArrowLeft, Code2, CheckCheck, Circle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useFileSystem } from '@/context/FileSystemContext';
 
@@ -176,12 +176,24 @@ export function TextEditor() {
           {/* Close editor panel */}
           <Button
             variant="ghost"
-            size="icon-sm"
+            size="sm"
             onClick={() => openFile(null)}
             aria-label="Close file"
-            className="text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/50"
+            className="text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/50 hidden md:flex"
           >
             <X size={14} />
+          </Button>
+
+          {/* Mobile Back Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => openFile(null)}
+            aria-label="Back to grid"
+            className="text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 flex md:hidden gap-1.5"
+          >
+            <ArrowLeft size={14} />
+            Back
           </Button>
         </div>
       </div>

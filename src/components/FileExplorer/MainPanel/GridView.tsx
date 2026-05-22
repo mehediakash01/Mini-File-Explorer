@@ -246,10 +246,7 @@ export function GridView() {
   // Folders first, then files (already sorted by context)
   return (
     <div
-      className="grid gap-2.5 p-4 content-start flex-1 overflow-y-auto"
-      style={{
-        gridTemplateColumns: 'repeat(auto-fill, minmax(108px, 1fr))',
-      }}
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 p-4 content-start flex-1 overflow-y-auto"
     >
       {children.map((node) => (
         <NodeCard key={node.id} node={node} />
