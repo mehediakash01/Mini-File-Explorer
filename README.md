@@ -1,10 +1,72 @@
-# Webbly Mini File Explorer
+#  Mini File Explorer
 
 A premium, highly-performant browser-based file explorer built with React, Next.js, and TypeScript. Designed to emulate native desktop file management workflows with uncompromising UI/UX, true responsive layouts, and a sophisticated client-side state engine.
 
 ## 🚀 Project Overview
 
-The Webbly Mini File Explorer is a state-of-the-art web application that allows users to create, navigate, rename, delete, and edit files and folders seamlessly. Built upon modern minimalist design principles, it features deep dark-mode aesthetics, micro-animations, keyboard shortcuts, and a robust architecture capable of handling deeply nested folder structures without performance degradation.
+The Mini File Explorer is a state-of-the-art web application that allows users to create, navigate, rename, delete, and edit files and folders seamlessly. Built upon modern minimalist design principles, it features deep dark-mode aesthetics, micro-animations, keyboard shortcuts, and a robust architecture capable of handling deeply nested folder structures without performance degradation.
+
+---
+
+## 🛠️ Tech Stack
+
+This project leverages a modern, robust, and strongly-typed ecosystem:
+- **Framework:** React 18 & Next.js 14 (App Router)
+- **Language:** TypeScript (Strict Mode)
+- **Styling:** TailwindCSS
+- **Components:** Shadcn UI & Radix UI Primitives
+- **Icons:** Lucide React
+- **State Management:** React Context API + LocalStorage (Persisted)
+
+---
+
+## 🏗️ Folder Structure
+
+The repository is modularly organized by feature domains rather than purely by file type, ensuring highly cohesive and decoupled modules:
+
+```text
+mini-file-explorer/
+├── src/
+│   ├── app/                    # Next.js App Router (Layouts & Pages)
+│   ├── components/             # React Components
+│   │   ├── FileExplorer/       # Core Domain: File Explorer
+│   │   │   ├── Editor/         # Text Editor Workspace (Module 5)
+│   │   │   ├── MainPanel/      # Grid, Breadcrumbs, Actions (Module 4)
+│   │   │   └── Sidebar/        # Tree View Navigation (Module 3)
+│   │   └── ui/                 # Reusable Shadcn UI primitives
+│   ├── context/                # Global State Providers (FileSystemContext)
+│   ├── hooks/                  # Custom Hooks (useFileSystemState)
+│   ├── lib/                    # Utility functions (Tailwind merges, etc.)
+│   └── types/                  # Global TypeScript Interfaces
+├── public/                     # Static assets
+└── package.json                # Dependencies and scripts
+```
+
+---
+
+## ⚙️ Project Setup
+
+Follow these steps to run the file explorer locally on your machine:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mehediakash01/Mini-File-Explorer.git
+   cd Mini-File-Explorer
+   ```
+
+2. **Install dependencies**
+   Ensure you have Node.js installed (v18+ recommended).
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
