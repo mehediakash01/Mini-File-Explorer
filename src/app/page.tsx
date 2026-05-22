@@ -43,6 +43,7 @@ function WorkspaceLayout() {
       <div className={`
         fixed inset-y-0 left-0 z-50 md:relative md:z-0
         transform transition-transform duration-300 ease-in-out
+        border-r border-white/[0.04]
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
         <TreeView />
@@ -51,11 +52,11 @@ function WorkspaceLayout() {
       {/* ── Main content pane ──────────────────────────────────────── */}
       <main className="flex flex-col flex-1 overflow-hidden relative">
         {/* Mobile Header Toolbar */}
-        <div className="md:hidden flex items-center px-4 py-3 border-b border-zinc-800/70 bg-zinc-950 shrink-0">
+        <div className="md:hidden flex items-center px-4 py-3 border-b border-white/[0.04] bg-zinc-950 shrink-0">
           <Button variant="ghost" size="icon-sm" onClick={() => setIsSidebarOpen(true)}>
             <Menu size={18} />
           </Button>
-          <span className="ml-3 font-semibold text-zinc-200">Mini File Explorer</span>
+          <span className="ml-3 font-semibold text-zinc-200 tracking-tight font-sans">NexusDrive</span>
         </div>
 
         <div className="flex flex-1 overflow-hidden transition-all duration-200 relative">

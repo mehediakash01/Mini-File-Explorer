@@ -108,7 +108,7 @@ export function MainPanel() {
     <div className="flex flex-col flex-1 h-full bg-zinc-950 overflow-hidden">
 
       {/* Toolbar */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800/70 shrink-0">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.04] shrink-0">
         <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
           Contents
         </span>

@@ -136,25 +136,25 @@ export function TextEditor() {
   // ── Render ───────────────────────────────────────────────────────────────
   if (!isValidFile) {
     return (
-      <div className="flex flex-col flex-1 h-full bg-[#0d0d14] border-l border-zinc-800/60">
+      <div className="flex flex-col flex-1 h-full bg-[#0d0d14] border-l border-white/[0.04]">
         <EmptyWorkspace />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col flex-1 h-full bg-[#0d0d14] border-l border-zinc-800/60 overflow-hidden">
+    <div className="flex flex-col flex-1 h-full bg-[#0d0d14] border-l border-white/[0.04] overflow-hidden">
 
       {/* ── File tab bar ─────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between gap-3 px-4 py-2.5
-                      border-b border-zinc-800/70 shrink-0">
+                      border-b border-white/[0.04] shrink-0">
         {/* Filename + icon */}
         <div className="flex items-center gap-2 min-w-0">
           <div className="flex items-center justify-center w-6 h-6 rounded-md
                           bg-indigo-500/10 text-indigo-400 shrink-0">
             <FileText size={13} />
           </div>
-          <span className="text-sm font-medium text-zinc-200 truncate">
+          <span className="text-sm font-semibold tracking-tight font-sans text-zinc-200 truncate">
             {activeNode.name}
           </span>
           <SaveBadge state={saveState} />
