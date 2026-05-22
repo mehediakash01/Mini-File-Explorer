@@ -25,7 +25,7 @@ This project leverages a modern, robust, and strongly-typed ecosystem:
 The repository is modularly organized by feature domains rather than purely by file type, ensuring highly cohesive and decoupled modules:
 
 ```text
-mini-file-explorer/
+NexusDrive/
 ├── src/
 │   ├── app/                    # Next.js App Router (Layouts & Pages)
 │   ├── components/             # React Components
@@ -50,8 +50,8 @@ Follow these steps to run the file explorer locally on your machine:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mehediakash01/Mini-File-Explorer.git
-   cd Mini-File-Explorer
+   git clone https://github.com/mehediakash01/NexusDrive.git
+   cd NexusDrive
    ```
 
 2. **Install dependencies**
