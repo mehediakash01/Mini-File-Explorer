@@ -231,11 +231,10 @@ function getSortedChildren(parentId: string | null, state: FileSystemState): Fil
 export function useFileSystemState(): FileSystemContextProps {
   // State slices
 
-  const [nodes, setNodes] = useState<FileSystemState>(() => {
-    // `localStorage` is unavailable during SSR — fall back to seed data.
-    if (typeof window === 'undefined') return buildInitialState();
-    return loadFromStorage() ?? buildInitialState();
-  });
+  // Always start with seed so server and client render identical HTML (no hydration mismatch).
+  // localStorage is applied in a useEffect after the first mount.
+  const [nodes, setNodes] = useState<FileSystemState>(buildInitialState);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   /** The folder whose contents are displayed in the main panel. */
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
@@ -248,7 +247,15 @@ export function useFileSystemState(): FileSystemContextProps {
 
   // Persistence
 
-  
+  // Rehydrate from localStorage after mount — must run before the save effect.
+  useEffect(() => {
+    const stored = loadFromStorage();
+    if (stored) setNodes(stored);
+    setIsHydrated(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Persist every state change after the initial rehydration.
   useEffect(() => {
     saveToStorage(nodes);
   }, [nodes]);
@@ -397,6 +404,7 @@ export function useFileSystemState(): FileSystemContextProps {
   // Return
 
   return {
+    isHydrated,
     // State
     nodes,
     currentFolderId,

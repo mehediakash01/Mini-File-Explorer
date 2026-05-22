@@ -13,6 +13,7 @@ export interface FileNode {
 export type FileSystemState = { [id: string]: FileNode };
 
 export interface FileSystemContextProps {
+  isHydrated: boolean;
   nodes: FileSystemState;
   currentFolderId: string | null;
   selectedNodeId: string | null;

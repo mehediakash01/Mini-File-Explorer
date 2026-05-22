@@ -29,6 +29,7 @@ function CreateNodeDialog({
 }) {
   const { createNode, currentFolderId } = useFileSystem();
   const [name, setName] = useState('');
+  const [error, setError] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Focus input on open
@@ -41,32 +42,49 @@ function CreateNodeDialog({
   };
 
   const handleCreate = () => {
-    if (!name.trim()) return;
-    createNode(name.trim(), nodeType, currentFolderId);
+    const trimmed = name.trim();
+    if (!trimmed) {
+      setError('Name cannot be empty.');
+      return;
+    }
+    if (/[\\/:*?"<>|]/.test(trimmed)) {
+      setError('A name cannot contain any of the following characters: \\ / : * ? " < > |');
+      return;
+    }
+    createNode(trimmed, nodeType, currentFolderId);
     onOpenChange(false);
     setName('');
+    setError('');
   };
 
   const label = nodeType === 'folder' ? 'New Folder' : 'New File';
 
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
-      <DialogContent>
+      <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>{label}</DialogTitle>
         </DialogHeader>
 
-        <Input
-          ref={inputRef}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') handleCreate();
-            if (e.key === 'Escape') onOpenChange(false);
-          }}
-          placeholder={nodeType === 'folder' ? 'Folder name…' : 'File name…'}
-          className="mt-1"
-        />
+        <div>
+          <Input
+            ref={inputRef}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setError('');
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleCreate();
+              if (e.key === 'Escape') onOpenChange(false);
+            }}
+            placeholder={nodeType === 'folder' ? 'Folder name…' : 'File name…'}
+            className="mt-1"
+          />
+          {error && (
+            <p className="mt-2 text-xs text-red-400 font-medium">{error}</p>
+          )}
+        </div>
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>

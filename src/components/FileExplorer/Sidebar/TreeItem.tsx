@@ -12,7 +12,7 @@ interface TreeItemProps {
 }
 
 export function TreeItem({ nodeId, depth, onFolderClick }: TreeItemProps) {
-  const { getNode, getChildren, currentFolderId, navigateTo } = useFileSystem();
+  const { getNode, getChildren, currentFolderId, navigateTo, getBreadcrumbs } = useFileSystem();
 
   // Local expansion state — each node owns its open/closed toggle
   const [isExpanded, setIsExpanded] = useState(false);
@@ -23,6 +23,7 @@ export function TreeItem({ nodeId, depth, onFolderClick }: TreeItemProps) {
   if (!node || node.type === 'file') return null;
 
   const isActive   = currentFolderId === nodeId;
+  const isPathActive = !isActive && getBreadcrumbs(currentFolderId).some((crumb) => crumb.id === nodeId);
   const subFolders = isExpanded
     ? getChildren(nodeId).filter((c) => c.type === 'folder')
     : [];
@@ -41,9 +42,11 @@ export function TreeItem({ nodeId, depth, onFolderClick }: TreeItemProps) {
         style={{ paddingLeft: `${depth * 12}px` }}
         className={`
           group flex items-center gap-1.5 w-full pr-3 py-[5px] text-sm
-          transition-colors duration-150 rounded-sm
+          transition-all duration-200 rounded-sm
           ${isActive
             ? 'bg-indigo-500/15 text-indigo-300'
+            : isPathActive
+            ? 'text-indigo-200/70 bg-indigo-500/5 hover:bg-indigo-500/10'
             : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200'
           }
         `}
